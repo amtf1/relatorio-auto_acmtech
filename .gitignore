@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+
+# Banco de dados local
+*.db
+*.db-shm
+*.db-wal
