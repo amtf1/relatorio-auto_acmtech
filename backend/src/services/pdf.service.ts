@@ -173,6 +173,7 @@ export async function gerarPDF(id: number): Promise<Buffer> {
     LOGO_CLIENTE: logoCliente,
     LOGO_ACMTECH: logoACMTECH,
     DATA_EXTENSO: escaparHTML(dataExtenso),
+    ANO: escaparHTML(ano),
     TITULO: escaparHTML(
       `${tipoFormatado} - ${relatorio.maquina}`
     ),
@@ -206,12 +207,20 @@ export async function gerarPDF(id: number): Promise<Buffer> {
       numeroFigura++;
 
       htmlFotografias += `
-        <figure>
-          <img src="${imagem}" alt="Fotografia da manutenção">
+        <figure class="fotografia">
+
           <figcaption>
-            Figura ${numeroFigura} –
-            ${escaparHTML(fotografia.legenda)}
+            <strong>Figura ${numeroFigura}:
+            ${escaparHTML(fotografia.legenda)}</strong>
           </figcaption>
+
+          <img
+            src="${imagem}"
+            alt="${escaparHTML(fotografia.legenda)}"
+          />
+          <p class="fonte-fotografia">
+            <em>Fonte: Autoria própria (${ano}).</em>
+          </p>
         </figure>
       `;
     }
@@ -265,17 +274,42 @@ export async function gerarPDF(id: number): Promise<Buffer> {
       waitUntil: "load"
     });
 
-    const arquivoPDF = await pagina.pdf({
-      format: "A4",
-      printBackground: true,
-      preferCSSPageSize: true,
-      margin: {
-        top: "0",
-        bottom: "0",
-        left: "0",
-        right: "0"
-      }
-    });
+    
+  const arquivoPDF = await pagina.pdf({
+    format: "A4",
+    printBackground: true,
+    preferCSSPageSize: true,
+
+    displayHeaderFooter: true,
+
+    headerTemplate: `<div></div>`,
+
+    footerTemplate: `
+      <div style="
+      width: 100%;
+      font-family: 'Times New Roman', serif;
+      font-size: 11px;
+      color: #666;
+      padding: 0 15mm;
+      box-sizing: border-box;
+      text-align: right;
+    ">
+        <span>
+          Página <span class="pageNumber"></span>
+          de <span class="totalPages"></span>
+        </span>
+      </div>
+    </div>
+    `,
+
+    margin: {
+      top: "0",
+      bottom: "15mm",
+      left: "0",
+      right: "0"
+    }
+  });
+
 
     return Buffer.from(arquivoPDF);
   } finally {
