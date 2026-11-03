@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório ACMTECH</title>
+</head>
+<body>
+  <div class="container capa">
+    <header>
+      <img src="{{LOGO_CLIENTE}}" alt="Logo do cliente" class="logo">
+      <img src="{{LOGO_ACMTECH}}" alt="Logo ACMTECH" class="logo">
+    </header>
+
+    <p class="data">Manaus, {{DATA_EXTENSO}}</p>
+
+    <main>
+      <h1>
+        RELATÓRIO DE SERVIÇO
+        <span class="subtitulo">{{TITULO}}</span>
+      </h1>
+
+      <img
+        src="{{IMAGEM_MAQUINA}}"
+        alt="Imagem do equipamento"
+        class="image_capa"
+      >
+
+      <p>
+        <strong>De:</strong> ACMTECH – Manutenção Industrial
+        <br>
+        <strong>Para:</strong> {{CLIENTE}}
+        <br>
+        <strong>Equipamento:</strong> {{MAQUINA}}
+        |
+        <strong>Modelo:</strong> {{MODELO}}
+        <br>
+        <strong>Serviço:</strong> {{TIPO}}
+      </p>
+    </main>
+
+    <footer>
+      <p class="rodape">
+        ACMTECH – Manutenção Industrial
+        Rua Canário, 19, Cidade Nova I, Quadra 52 –
+        Manaus/AM – CEP: 69095-040
+      </p>
+
+      <p class="contagem_de_paginas">
+        Relatório nº {{NUMERO_RELATORIO}}
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
